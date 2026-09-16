@@ -1,6 +1,6 @@
 lambda <- 3
 n <- 10000
-random_inversa <- runif(n, min=0, max=1)
+random_inversa <- runif(n)
 x <- -log(1-random_inversa)/lambda # Função da inversa
 hist(x, prob=TRUE) # com o prob true assim o eixo y representa a densidsade
 
