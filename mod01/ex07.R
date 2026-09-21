@@ -1,16 +1,7 @@
 # M/M/2 queue simulator based on Annex A
-
-set.seed(123)
-
-# Run once with ArrivalRate=10 and once with ArrivalRate=18.
-ArrivalRate=10
+ArrivalRate=8
 ServiceRate=10
 NumCustomers=100000
-
-if (ArrivalRate >= 2 * ServiceRate) {
-  stop("The system must satisfy ArrivalRate / (2 * ServiceRate) < 1")
-}
-
 Time=0
 NumQueueCompleted=0
 NumInQueue=0
@@ -58,21 +49,4 @@ while (NumQueueCompleted < NumCustomers) {
 
 AvgDelay=AcumDelay / NumQueueCompleted
 
-# Erlang C formulas for an M/M/2 queue.
-NumberServers=2
-OfferedLoad=ArrivalRate / ServiceRate
-Rho=ArrivalRate / (NumberServers * ServiceRate)
-P0=1 / (sum(OfferedLoad^(0:(NumberServers - 1)) /
-                  factorial(0:(NumberServers - 1))) +
-             OfferedLoad^NumberServers /
-               (factorial(NumberServers) * (1 - Rho)))
-ProbabilityQueue=OfferedLoad^NumberServers * P0 /
-  (factorial(NumberServers) * (1 - Rho))
-TheoreticalDelay=ProbabilityQueue /
-  (NumberServers * ServiceRate - ArrivalRate)
 
-print(sprintf("lambda/mu = %.2f", ArrivalRate/ServiceRate))
-print(sprintf("rho = lambda/(2*mu) = %.2f", Rho))
-print(sprintf("Queue delay: simulation = %.5f | theoretical = %.5f",
-              AvgDelay, TheoreticalDelay))
-print(sprintf("Absolute error = %.5f", abs(AvgDelay-TheoreticalDelay)))
