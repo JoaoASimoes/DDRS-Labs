@@ -13,7 +13,7 @@ EventList=c(rexp(1,ArrivalRate),Inf)
 
 SystemArrivalTime=c()
 
-while (NumSystemCompleted<1000) {
+while (NumSystemCompleted<10000) {
   NextEventType=which.min(EventList)
   NextEventTime=EventList[NextEventType]
   
@@ -36,7 +36,7 @@ while (NumSystemCompleted<1000) {
     SystemArrivalTime=SystemArrivalTime[-1]
     
     NumSystemCompleted = NumSystemCompleted+1
-
+    
     if (NumInQueue==0) {
       ServerStatus=0
       EventList[2]=Inf
@@ -67,4 +67,3 @@ print(sprintf("Queue delay: simulation = %.4f | theoretical = %.4f",AvgDelayQueu
 print(sprintf("System delay: simulation = %.4f | theoretical = %.4f",AvgDelaySystem,TheoreticalDelaySystem))
 
 print(sprintf("Server utilization: simulation = %.4f | theoretical = %.4f",ServerUtilization,TheoreticalUtilization))
-

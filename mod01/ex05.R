@@ -1,5 +1,6 @@
 lambda <- 3
 n <- 10000
+#n <- 10
 interarrivals <- rexp(n, rate = lambda) # gerar diretamentenúmeros exponenciais com rate, sem runif()
 tempos_chegada <- cumsum(interarrivals) # Soma dos números exponenciais
 head(tempos_chegada)
