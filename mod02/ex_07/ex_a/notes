@@ -1,0 +1,15 @@
+1o cenario:
+  parameters = function() {
+    LinkCapacity<<-100e3
+    Flows<<-list(list(sourcetype=1,arrivalrate=10,packetsize=1000,priority=1),
+                 list(sourcetype=1,arrivalrate=20,packetsize=1000,priority=1))
+    endTime<<-10000*(1/10)   # 1000 s
+  }
+
+2o cenario:
+  parameters = function() {
+    LinkCapacity<<-100e3
+    Flows<<-list(list(sourcetype=1,arrivalrate=30,packetsize=1000,priority=1),
+                 list(sourcetype=1,arrivalrate=60,packetsize=1000,priority=1))
+    endTime<<-30000*(1/30)   # 1000 s
+  }
