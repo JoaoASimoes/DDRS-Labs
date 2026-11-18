@@ -23,7 +23,7 @@ pi_balanco = as.vector(e %*% solve(P + E - I))
 # ---------------------------------------------------------------
 # (ii) Multiplicacao de matrizes:
 #      calcular P^n ate as linhas ficarem iguais; cada linha e pi
-# Com a equação de Chapman-Kolmogorov
+# Com a equacao de Chapman-Kolmogorov
 # ---------------------------------------------------------------
 for (n in c(2, 5, 10, 20)) {
   cat("\nP^", n, ":\n", sep = "")
@@ -36,16 +36,23 @@ pi_matriz = Pn[1, ]
 # (iii) Simulacao (slide 35: pi_j = fracao de tempo no estado j):
 #       gerar uma trajetoria longa e contar as visitas a cada estado
 # ---------------------------------------------------------------
-set.seed(1)
-n_passos = 100000
-estado = 0                          # estado inicial (nao influencia o limite)
-visitas = numeric(N)
-for (k in 1:n_passos) {
-  # proximo estado escolhido com as probabilidades da linha do estado atual
-  estado = sample(0:(N - 1), 1, prob = P[estado + 1, ])
-  visitas[estado + 1] = visitas[estado + 1] + 1
+simular_dtmc = function(n_passos) {
+  estado = 0                          # estado inicial (nao influencia o limite)
+  visitas = numeric(N)
+  for (k in 1:n_passos) {
+    # proximo estado escolhido com as probabilidades da linha do estado atual
+    estado = sample(0:(N - 1), 1, prob = P[estado + 1, ])
+    visitas[estado + 1] = visitas[estado + 1] + 1
+  }
+  visitas / n_passos                  # fracao de tempo em cada estado
 }
-pi_sim = visitas / n_passos
+
+set.seed(1)
+R = 10                                # numero de simulacoes independentes
+n_passos = 100000
+amostras = t(replicate(R, simular_dtmc(n_passos)))   # R linhas x N estados
+pi_sim = colMeans(amostras)
+ic_sim = qt(0.975, R - 1) * apply(amostras, 2, sd) / sqrt(R)   # IC 95%
 
 # ---------------------------------------------------------------
 # Tabela de resultados
@@ -53,6 +60,7 @@ pi_sim = visitas / n_passos
 resultados = data.frame(Estado    = 0:(N - 1),
                         Balanco   = round(pi_balanco, 4),
                         Matriz    = round(pi_matriz, 4),
-                        Simulacao = round(pi_sim, 4))
+                        Simulacao = round(pi_sim, 4),
+                        IC95      = round(ic_sim, 4))
 cat("\nProbabilidades limite:\n")
 print(resultados, row.names = FALSE)
