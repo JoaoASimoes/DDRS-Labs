@@ -72,18 +72,23 @@ simular_view2 <- function(tempo_total, lambda) {
   tempo_em_cada_estado / tempo_total
 }
 
-# 5. Executar simulacoes e comparar
+# 5. Executar simulacoes e comparar (R simulacoes independentes, IC 95%)
 set.seed(123)  # Permite repetir os resultados
 tempo_total <- 100000
+R <- 10
 
-pi_view1 <- simular_view1(tempo_total, nu, P)
-pi_view2 <- simular_view2(tempo_total, lambda)
+amostras_v1 <- t(replicate(R, simular_view1(tempo_total, nu, P)))
+amostras_v2 <- t(replicate(R, simular_view2(tempo_total, lambda)))
+
+ic95 <- function(x) qt(0.975, R - 1) * apply(x, 2, sd) / sqrt(R)
+pi_view1 <- colMeans(amostras_v1)
+pi_view2 <- colMeans(amostras_v2)
 
 resultados <- data.frame(
   Estado = 1:3,
   Teorico = pi_teorico,
-  View1 = pi_view1,
-  View2 = pi_view2
+  View1 = pi_view1, IC95_View1 = ic95(amostras_v1),
+  View2 = pi_view2, IC95_View2 = ic95(amostras_v2)
 )
 
 print(round(resultados, 4))
