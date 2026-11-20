@@ -19,9 +19,11 @@ Se algum link tiver λ ≥ μ, a rede é instável e o script pára com erro.
 - Se os fluxos tiverem tamanhos de pacote diferentes, usa a média ponderada pelas taxas em cada link.
 
 ## Testes (cálculo à mão)
+
 | Teste | Resultado |
 |---|---|
 | 1 link, λ = 32, C = 64 kb/s, Lp = 1000 b | W = 0,03125 s; L = 1 |
 | 2 links em série | W = 0,0625 s; L = 2 |
 | 3 links, 2 fluxos (1-2 e 2-3, λ = 16 cada) | W de cada fluxo = 0,0521 s; L = 5/3; W rede = 0,0521 s |
 | Rede do `parameters.R` | fluxos: 0,0006 / 0,0008 / 0,0004 s; L = 14,5; W rede = 0,000644 s |
+

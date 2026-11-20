@@ -2,6 +2,7 @@
 # Run in the folder containing the pnet.R files (init.R, timing.R, arrivals.R,
 # departures.R) and kleinrock.R. Only the 4 simulator functions are sourced;
 # parameters are set here instead of in parameters.R.
+setwd("/home/simoes/Tecas/UCs/DDRS/Labs/DDRS-Labs/mod02/pnet")
 source("init.R"); source("timing.R"); source("arrivals.R"); source("departures.R")
 source("kleinrock.R")
 
