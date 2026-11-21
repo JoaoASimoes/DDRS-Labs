@@ -10,7 +10,7 @@ C  <- 64000            # link capacity (bits/s)
 Lp <- 1000             # mean packet length (bits)
 mu <- C / Lp           # service rate (packets/s) = 64
 rhos  <- c(0.05, 0.5, 0.95, 0.975)
-nPkts <- 20000         # approx. packets per replication (endTime = nPkts / lambda)
+nPkts <- 100000         # approx. packets per replication (endTime = nPkts / lambda)
 nRep  <- 10            # independent replications -> confidence interval
 
 LinkCapacities <- c(C, C)

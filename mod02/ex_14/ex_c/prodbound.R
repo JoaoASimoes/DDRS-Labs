@@ -1,6 +1,7 @@
 #Determines the flow blocking probabilities of a circuit switched network using
 #the product bound.
 
+setwd("/home/simoes/Tecas/UCs/DDRS/Labs/DDRS-Labs/mod02/ex_14/ex_c")
 source("erlB.R")
 
 ##############################################################################
