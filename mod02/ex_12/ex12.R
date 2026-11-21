@@ -2,6 +2,7 @@
 # Run in the folder containing the pnet.R files (init.R, timing.R, arrivals.R,
 # departures.R) and kleinrock.R. Only the 4 simulator functions are sourced;
 # parameters are set here instead of in parameters.R.
+setwd("/home/simoes/Tecas/UCs/DDRS/Labs/DDRS-Labs/mod02/pnet")
 source("init.R"); source("timing.R"); source("arrivals.R"); source("departures.R")
 source("kleinrock.R")
 
@@ -9,7 +10,7 @@ C  <- 64000            # link capacity (bits/s)
 Lp <- 1000             # mean packet length (bits)
 mu <- C / Lp           # service rate (packets/s) = 64
 rhos  <- c(0.05, 0.5, 0.95, 0.975)
-nPkts <- 20000         # approx. packets per replication (endTime = nPkts / lambda)
+nPkts <- 100000         # approx. packets per replication (endTime = nPkts / lambda)
 nRep  <- 10            # independent replications -> confidence interval
 
 LinkCapacities <- c(C, C)
